@@ -14,7 +14,7 @@ public interface ProductGateway {
     List<ProductDto> getProductList();
 
     @GetMapping("/{productId}")
-    ResponseEntity<?> getProduct(@PathVariable("productId") Long id);
+    ResponseEntity<? extends ProductDto> getProduct(@PathVariable("productId") Long id);
 
     @PostMapping
     ResponseEntity<?> handlePost(@Validated @RequestBody ProductDto productDto);
