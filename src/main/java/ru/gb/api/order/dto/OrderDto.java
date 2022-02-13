@@ -27,6 +27,8 @@ import java.util.Set;
 @Builder
 public class OrderDto implements Serializable {
 
+    static final long serialVersionUID = -1651143003584311074L;
+
     private Long id;
     private String address;
     @NotBlank

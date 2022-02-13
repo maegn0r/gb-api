@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import ru.gb.api.category.api.CategoryGateway;
 import ru.gb.api.manufacturer.api.ManufacturerGateway;
+import ru.gb.api.order.api.OrderGateway;
 import ru.gb.api.product.api.ProductGateway;
 
 
@@ -32,6 +33,11 @@ public class FeignConfiguration {
     @Bean
     public ProductGateway productGateway() {
         return feignClientFactory.newFeignClient(ProductGateway.class, gbApiProperties.getEndpoint().getProductUrl());
+    }
+
+    @Bean
+    public OrderGateway orderGateway() {
+        return feignClientFactory.newFeignClient(OrderGateway.class, gbApiProperties.getEndpoint().getOrderUrl());
     }
 
 }
