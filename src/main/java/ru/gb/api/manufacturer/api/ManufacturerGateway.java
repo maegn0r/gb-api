@@ -24,6 +24,5 @@ public interface ManufacturerGateway {
                                           @Validated @RequestBody ManufacturerDto manufacturerDto);
 
     @DeleteMapping("/{manufacturerId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteById(@PathVariable("manufacturerId") Long id);
 }

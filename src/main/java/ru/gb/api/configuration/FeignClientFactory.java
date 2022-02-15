@@ -5,12 +5,14 @@ import feign.codec.ErrorDecoder;
 import feign.optionals.OptionalDecoder;
 import feign.slf4j.Slf4jLogger;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.cloud.openfeign.support.SpringEncoder;
 import org.springframework.cloud.openfeign.support.SpringMvcContract;
+import org.springframework.cloud.sleuth.instrument.web.client.feign.SleuthFeignBuilder;
 import org.springframework.stereotype.Component;
 
 import static feign.FeignException.errorStatus;
@@ -21,10 +23,11 @@ public class FeignClientFactory {
 
     private final GbApiProperties gbApiProperties;
     private final ObjectFactory<HttpMessageConverters> messageConverters;
+    private final BeanFactory beanFactory;
 
     public <T> T newFeignClient(Class<T> requiredType, String url) {
 
-        return Feign.builder()
+        return SleuthFeignBuilder.builder(beanFactory)
                 .encoder(new SpringEncoder(this.messageConverters))
                 .decoder(new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(this.messageConverters))))
                 .options(new Request.Options(
