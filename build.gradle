@@ -6,7 +6,7 @@ plugins {
 
 
 group = 'ru.gb'
-version = '0.1.24'
+version = '0.1.26'
 sourceCompatibility = '11'
 
 repositories {

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.gb.api.security.validation.FieldMatch;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -13,6 +14,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@FieldMatch(first = "password", second = "matchingPassword", message = "Пароли должны совпадать")
 public class UserDto {
 
     @JsonIgnore
@@ -23,6 +25,9 @@ public class UserDto {
     @NotBlank(message = "is required")
     @Size(min = 8, message = "password length must be greater than 8 symbols")
     private String password;
+    @NotBlank(message = "is required")
+    @Size(min = 8, message = "password length must be greater than 8 symbols")
+    private String matchingPassword;
     @NotBlank(message = "is required")
     private String firstname;
     @NotBlank(message = "is required")
